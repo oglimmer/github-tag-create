@@ -9,15 +9,7 @@ REPO="$4"
 EMAIL="$5"
 GITHUB_TOKEN="$6"
 
-[ -z "$TAG" ] && exit 1
-[ -z "$BRANCH" ] && exit 1
-[ -z "$ACCOUNT" ] && exit 1
-[ -z "$REPO" ] && exit 1
-[ -z "$EMAIL" ] && exit 1
-[ -z "$GITHUB_TOKEN" ] && exit 1
-
-URL="git@github.com:$ACCOUNT/$REPO.git"
-SHA=$(git ls-remote $URL $BRANCH | cut -f1)
+SHA=$(git ls-remote "https://$ACCOUNT:$GITHUB_TOKEN@github.com/$ACCOUNT/$REPO.git" $BRANCH | cut -f1)
 DATE=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
 cat > tag_object_req.json <<EOF
