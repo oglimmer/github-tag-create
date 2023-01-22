@@ -1,0 +1,29 @@
+name: Tag Creation
+description: Creates and pushes a git tag via REST API
+
+inputs:
+  tag:
+    description: the tag you want to create
+    required: true
+  branch:
+    description: the branch the tag is based upon
+    required: true
+  account:
+    description: the github account
+    required: true
+  repo:
+    description: the github accounts repo
+    required: true
+  email:
+    description: the email for the commit
+    required: true
+  githubtoken:
+    description: the github token used to authentication to the REST API
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Run Script
+      run: ${GITHUB_ACTION_PATH}/script.sh ${{ inputs.tag }} ${{ inputs.branch }} ${{ inputs.account }} ${{ inputs.repo }} ${{ inputs.email }} ${{ inputs.githubtoken }}
+      shell: bash
